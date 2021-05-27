@@ -18,87 +18,96 @@ class _LoginScreenState extends State<LoginScreen> {
   final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: ModalProgressHUD(
-        inAsyncCall: spin,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Flexible(
-                child: Hero(
-                  tag: 'logo',
-                  child: Container(
-                    height: 200.0,
-                    child: Image.asset('images/logo.png'),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: ModalProgressHUD(
+          inAsyncCall: spin,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Flexible(
+                  child: Hero(
+                    tag: 'logo',
+                    child: Container(
+                      height: 200.0,
+                      child: Image.asset('images/logo.png'),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 30.0,
-              ),
-              TextField(
-                textAlign: TextAlign.center,
-                keyboardType: TextInputType.emailAddress,
-                onChanged: (value) {
-                  email = value;
-                },
-                decoration:
-                    kInputDecoration.copyWith(hintText: 'Enter your Email'),
-              ),
-              SizedBox(
-                height: 4.0,
-              ),
-              TextField(
-                textAlign: TextAlign.center,
-                obscureText: true,
-                onChanged: (value) {
-                  password = value;
-                },
-                decoration:
-                    kInputDecoration.copyWith(hintText: 'Enter your password'),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              RoundButton(Colors.lightBlueAccent, 'Log In', () async {
-                setState(() {
-                  spin = true;
-                });
-                try {
-                  await _auth.signInWithEmailAndPassword(
-                      email: email, password: password);
-                  Navigator.pushNamed(context, ChatScreen.id);
-                  setState(() {
-                    spin = false;
-                  });
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'invalid-email') {
-                    Alert(
-                      context: context,
-                      title: "ALERT",
-                      desc: "Invalid Email.",
-                    ).show();
-                  } else if (e.code == 'user-not-found') {
-                    Alert(
-                      context: context,
-                      title: "ALERT",
-                      desc: "User not found with the given credentials.",
-                    ).show();
-                  } else if (e.code == 'wrong-password') {
-                    Alert(
-                      context: context,
-                      title: "ALERT",
-                      desc: "Wrong Password.",
-                    ).show();
-                  } else
-                    print(e);
-                }
-              }),
-            ],
+                SizedBox(
+                  height: 30.0,
+                ),
+                TextField(
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.emailAddress,
+                  onChanged: (value) {
+                    email = value;
+                  },
+                  decoration:
+                      kInputDecoration.copyWith(hintText: 'Enter your Email'),
+                ),
+                SizedBox(
+                  height: 4.0,
+                ),
+                TextField(
+                  textAlign: TextAlign.center,
+                  obscureText: true,
+                  onChanged: (value) {
+                    password = value;
+                  },
+                  decoration: kInputDecoration.copyWith(
+                      hintText: 'Enter your password'),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                RoundButton(
+                  Colors.lightBlueAccent,
+                  'Log In',
+                  () async {
+                    setState(() {
+                      spin = true;
+                    });
+                    try {
+                      await _auth.signInWithEmailAndPassword(
+                          email: email, password: password);
+                      Navigator.pushNamed(context, ChatScreen.id);
+                      setState(() {
+                        spin = false;
+                      });
+                    } on FirebaseAuthException catch (e) {
+                      setState(() {
+                        spin = false;
+                      });
+                      if (e.code == 'invalid-email') {
+                        Alert(
+                          context: context,
+                          title: "ALERT",
+                          desc: "Invalid Email.",
+                        ).show();
+                      } else if (e.code == 'user-not-found') {
+                        Alert(
+                          context: context,
+                          title: "ALERT",
+                          desc: "User not found with the given credentials.",
+                        ).show();
+                      } else if (e.code == 'wrong-password') {
+                        Alert(
+                          context: context,
+                          title: "ALERT",
+                          desc: "Wrong Password.",
+                        ).show();
+                      } else
+                        print(e);
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
