@@ -85,21 +85,57 @@ class _LoginScreenState extends State<LoginScreen> {
                       });
                       if (e.code == 'invalid-email') {
                         Alert(
+                          buttons: [
+                            DialogButton(
+                              color: Colors.lightBlueAccent,
+                              child: Text(
+                                "OK",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              width: 120,
+                            )
+                          ],
                           context: context,
-                          title: "",
-                          desc: "Invalid Email.",
+                          title: "Invalid Email",
+                          desc: "Please enter a valid email address",
                         ).show();
                       } else if (e.code == 'user-not-found') {
                         Alert(
+                          buttons: [
+                            DialogButton(
+                              color: Colors.lightBlueAccent,
+                              child: Text(
+                                "OK",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              width: 120,
+                            )
+                          ],
                           context: context,
-                          title: "",
-                          desc: "User not found with the given credentials.",
+                          title: "User not found",
+                          desc: "This email is not registered",
                         ).show();
                       } else if (e.code == 'wrong-password') {
                         Alert(
+                          buttons: [
+                            DialogButton(
+                              color: Colors.lightBlueAccent,
+                              child: Text(
+                                "OK",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              onPressed: () => Navigator.pop(context),
+                              width: 120,
+                            )
+                          ],
                           context: context,
-                          title: "",
-                          desc: "Wrong Password.",
+                          title: "Wrong Password",
+                          desc: "Sorry, your email or password is incorrect",
                         ).show();
                       } else
                         print(e);
