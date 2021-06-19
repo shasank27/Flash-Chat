@@ -86,19 +86,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (e.code == 'invalid-email') {
                         Alert(
                           context: context,
-                          title: "ALERT",
+                          title: "",
                           desc: "Invalid Email.",
                         ).show();
                       } else if (e.code == 'user-not-found') {
                         Alert(
                           context: context,
-                          title: "ALERT",
+                          title: "",
                           desc: "User not found with the given credentials.",
                         ).show();
                       } else if (e.code == 'wrong-password') {
                         Alert(
                           context: context,
-                          title: "ALERT",
+                          title: "",
                           desc: "Wrong Password.",
                         ).show();
                       } else
